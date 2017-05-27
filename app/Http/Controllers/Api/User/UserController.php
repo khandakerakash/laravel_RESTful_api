@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\ApiController;
+use App\Mail\CreateUserEmail;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends ApiController
 {
@@ -60,6 +62,8 @@ class UserController extends ApiController
             ]
         );
 
+        Mail::to($user)->send(new CreateUserEmail($user));
+
         return $this->showOne($user, 201);
     }
 
@@ -94,7 +98,12 @@ class UserController extends ApiController
      */
     public function update(Request $request, User $user)
     {
-        //
+//        $rules = [
+//
+//            'email' => 'email|unique:users,email.'.$user->id,
+//            'password' => 'min:6|max:6|confirmed'
+//
+//        ];
     }
 
     /**
@@ -107,5 +116,15 @@ class UserController extends ApiController
     {
         $user->delete();
         return $this->showOne($user, 204);
+    }
+
+    public function verify($token)
+    {
+        $user = User::where('verification_token', $token)->get()->first();
+
+        $user->verified = User::USER_VERIFIED;
+        $user->verification_token = null;
+        $user->save();
+        return $this->showOne($user, 200);
     }
 }

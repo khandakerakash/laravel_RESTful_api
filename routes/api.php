@@ -18,3 +18,4 @@ use Illuminate\Http\Request;
 //});
 
 Route::resource('users','Api\User\UserController');
+Route::get('users/verify/{token}', 'Api\User\UserController@verify')->name('create.user.activation');
