@@ -71,6 +71,11 @@ class Handler extends ExceptionHandler
             return $this->convertValidationExceptionToResponse($exception, $request);
         }
 
+        if ($exception) {
+
+            return $this->showError("Some problem happen", 404);
+        }
+
         return parent::render($request, $exception);
 
 
