@@ -27,7 +27,7 @@ trait ApiResponse
 
     protected function showError($msg, $code) {
 
-        return response()->json(["error" => $msg, "code" => $code]);
+        return response()->json(["error" => $msg, "code" => $code],$code);
     }
 
 }

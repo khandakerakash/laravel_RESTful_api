@@ -24,9 +24,15 @@ Route::get('users/verify/{token}', 'Api\User\UserController@verify')->name('crea
 
 //buyer related route
 Route::resource('buyers', 'Api\Buyer\BuyerController', ['only' => ['index', 'show']]);
+Route::resource('buyers.products', 'Api\Buyer\BuyerProductController', ['only' => ['index']]);
+Route::resource('buyers.categories', 'Api\Buyer\BuyerCategoryController', ['only' => ['index']]);
+Route::resource('buyers.sellers', 'Api\Buyer\BuyerSellerController', ['only' => ['index']]);
 
 //seller related route
 Route::resource('sellers', 'Api\Seller\SellerController', ['only' => ['index', 'show']]);
+Route::resource('sellers.products', 'Api\Seller\SellerProductController', ['only' => ['index']]);
+Route::resource('sellers.categories', 'Api\Seller\SellerCategoryController', ['only' => ['index']]);
+Route::resource('sellers.buyers', 'Api\Seller\SellerBuyerController', ['only' => ['index']]);
 
 //product related route
 Route::resource('products', 'Api\Product\ProductController', ['only' => ['index', 'show']]);

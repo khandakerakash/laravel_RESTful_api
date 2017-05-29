@@ -17,12 +17,7 @@ class CategoryProductController extends ApiController
      */
     public function index(Category $category)
     {
-        $products = Category::with('products')
-            ->get()
-            ->pluck('products')
-            ->collapse()
-            ->unique('id')
-            ->values();
+        $products = $category->products;
 
         return $this->showAll($products, 200);
     }
